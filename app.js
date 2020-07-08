@@ -7,24 +7,54 @@ const store = {
   // 5 or more questions are required
   questions: [
     {
-      question: 'What color is broccoli?',
+      question: 'Add 2 + 2',
       answers: [
         'red',
         'orange',
         'pink',
         'green'
       ],
-      correctAnswer: 'green'
+      correctAnswer: '4'
     },
     {
-      question: 'What is the current year?',
+      question: 'Divide 50 / 5',
       answers: [
         '1970',
         '2015',
         '2019',
         '2005'
       ],
-      correctAnswer: '2019'
+      correctAnswer: '10'
+    }
+    {
+      question: 'Multiply 3 * 12',
+      answers: [
+        '1970',
+        '2015',
+        '2019',
+        '2005'
+      ],
+      correctAnswer: '36'
+    }
+    {
+      question: 'Divide 200 / 20',
+      answers: [
+        '1970',
+        '2015',
+        '2019',
+        '2005'
+      ],
+      correctAnswer: '10'
+    }
+    {
+      question: 'Subtract 75 - 13',
+      answers: [
+        '1970',
+        '2015',
+        '2019',
+        '2005'
+      ],
+      correctAnswer: '62'
     }
   ],
   quizStarted: false,
