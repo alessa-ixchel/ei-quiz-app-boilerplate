@@ -9,50 +9,50 @@ const store = {
     {
       question: 'Add 2 + 2',
       answers: [
-        'red',
-        'orange',
-        'pink',
-        'green'
+        '1',
+        '4',
+        '2',
+        '6'
       ],
       correctAnswer: '4'
     },
     {
       question: 'Divide 50 / 5',
       answers: [
-        '1970',
-        '2015',
-        '2019',
-        '2005'
+        '20',
+        '15',
+        '10',
+        '5'
       ],
       correctAnswer: '10'
-    }
+    },
     {
       question: 'Multiply 3 * 12',
       answers: [
-        '1970',
-        '2015',
-        '2019',
-        '2005'
+        '24',
+        '36',
+        '42',
+        '30'
       ],
       correctAnswer: '36'
-    }
+    },
     {
       question: 'Divide 200 / 20',
       answers: [
-        '1970',
-        '2015',
-        '2019',
-        '2005'
+        '20',
+        '2',
+        '12',
+        '10'
       ],
       correctAnswer: '10'
-    }
+    },
     {
       question: 'Subtract 75 - 13',
       answers: [
-        '1970',
-        '2015',
-        '2019',
-        '2005'
+        '60',
+        '51',
+        '52',
+        '62'
       ],
       correctAnswer: '62'
     }
