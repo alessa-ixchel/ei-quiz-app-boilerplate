@@ -1,31 +1,9 @@
-/* eslint-disable no-undef */
+
 'use strict';
 
 
 
-const firstPage =
-  `<section class="page=2">
-<h2>Question One</h2>
-<h3>What is 2 + 2?</h3>
-<ul>
-    <li>5</li>
-    <li>10</li>
-    <li>4</li>
-    <li>235</li>
-</ul>
-<div class="score">
-    <span class="dot 1"></span>
-    <span class="dot 2"></span>
-    <span class="dot 3"></span>
-    <span class="dot 4"></span>
-    <span class="dot 5"></dspan>
-</div>
-<div class="progress">
-    <span class="current-number"></span>
-</div>
-<button>Submit</button>
 
-</section>`;
 // initiates page with first page
 function initialPage() {
   $('main').append(mainPage);
@@ -58,12 +36,7 @@ function createTemplate(item, i) {
     </section>`;
 }
 
-/*function practice() {
-  initialPage();
-  changePage();
-}
 
-$(practice);*/
 /*IDEA TO ACCESS QUESTION NAME
 store.questions[i]{
   return questions.question
@@ -76,10 +49,10 @@ const store = {
   questions: [{
     question: 'Add 2 + 2',
     answers: [
-      '1',
-      '4',
-      '2',
-      '6'
+      <button>'1'</button>,
+      <button>'4'</button>,
+      <button>'2'</button>,
+      <button>'6'</button>
     ],
     correctAnswer: '4'
   },
@@ -96,30 +69,30 @@ const store = {
   {
     question: 'Multiply 3 * 12',
     answers: [
-      '24',
-      '36',
-      '42',
-      '30'
+      <button>'24'</button>,
+      <button>'36'</button>,
+      <button>'42'</button>,
+      <button>'30'</button>
     ],
     correctAnswer: '36'
   },
   {
     question: 'Divide 200 / 20',
     answers: [
-      '20',
-      '2',
-      '12',
-      '10'
+      <button>'20'</button>,
+      <button>'2'</button>,
+      <button>'12'</button>,
+      <button>'10'</button>
     ],
     correctAnswer: '10'
   },
   {
     question: 'Subtract 75 - 13',
     answers: [
-      '60',
-      '51',
-      '52',
-      '62'
+      <button>60</button>,
+      <button>51</button>,
+      <button>52</button>,
+      <button>62</button>
     ],
     correctAnswer: '62'
   }
@@ -147,12 +120,11 @@ const store = {
 /********** TEMPLATE GENERATION FUNCTIONS **********/
 
 // These functions return HTML templates
+const mainPage =`<section class="page-1">  <h1>Let's start a Math Quiz</h1>  <button>Start</button></section>`;//Declares starting content
 
 /********** RENDER FUNCTION(S) **********/
 
-// This function conditionally replaces the contents of the <main> tag based on the state of the store
-
-const mainPage =`<section class="page-1">  <h1>Let's start a Math Quiz</h1>  <button>Start</button></section>`;//Declares starting content
+// || This function conditionally replaces the contents of the <main> tag based on the state of the store
 
 function isCorrect ();//finds out if answer is correct
 
@@ -175,8 +147,34 @@ function changePage() {
   });
 }
 
+/*function practice() {
+  initialPage();
+  changePage();
+}
 
-
+$(practice);*/
+const firstPage = //original idea to present questions (works)
+  `<section class="page=2">
+<h2>Question One</h2>
+<h3>What is 2 + 2?</h3>
+<ul>
+    <li>5</li>
+    <li>10</li>
+    <li>4</li>
+    <li>235</li>
+</ul>
+<div class="score">
+    <span class="dot 1"></span>
+    <span class="dot 2"></span>
+    <span class="dot 3"></span>
+    <span class="dot 4"></span>
+    <span class="dot 5"></dspan>
+</div>
+<div class="progress">
+    <span class="current-number"></span>
+</div>
+<button>Submit</button>
+</section>`;
 
 //USER REQUIREMENTS
 //one at a time
