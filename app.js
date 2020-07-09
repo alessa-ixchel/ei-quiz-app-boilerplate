@@ -1,11 +1,7 @@
 /* eslint-disable no-undef */
 'use strict';
 
-const mainPage =
-  `<section class="page-1">
-        <h1>Let's start a Math Quiz</h1>
-            <button>Start</button>
-     </section>`;
+
 
 const firstPage =
   `<section class="page=2">
@@ -22,7 +18,7 @@ const firstPage =
     <span class="dot 2"></span>
     <span class="dot 3"></span>
     <span class="dot 4"></span>
-    <span class="dot 5"></span>
+    <span class="dot 5"></dspan>
 </div>
 <div class="progress">
     <span class="current-number"></span>
@@ -30,23 +26,16 @@ const firstPage =
 <button>Submit</button>
 
 </section>`;
-
+// initiates page with first page
 function initialPage() {
   $('main').append(mainPage);
 }
 
-function changePage() {
-  $('section').click('button', event => {
-    $('section').replaceWith(firstPage);
-  });
-}
 
-
-
-function createTemplate(index, obj) {
-  return `<section class="page=2">
-  <h2>Question 2</h2> 
-    <h3>obj.questions[index.question]</h3>
+const questionPlacement= 
+function createTemplate(item, i) {
+  return `<'question number'+${store.questions.indexof()}+'out of 5'>
+  <h2>${item.questions.question}</h2> 
     <ul>
         <li>store.questions[i.answers[0]]</li>
         <li>10</li>
@@ -85,70 +74,60 @@ store.questions.question[i]*/
 const store = {
   // 5 or more questions are required
   questions: [{
-      question: 'Add 2 + 2',
-      answers: [
-        '1',
-        '4',
-        '2',
-        '6'
-      ],
-      correctAnswer: '4'
-    },
-    {
-      question: 'Divide 50 / 5',
-      answers: [
-        '20',
-        '15',
-        '10',
-        '5'
-      ],
-      correctAnswer: '10'
-    },
-    {
-      question: 'Multiply 3 * 12',
-      answers: [
-        '24',
-        '36',
-        '42',
-        '30'
-      ],
-      correctAnswer: '36'
-    },
-    {
-      question: 'Divide 200 / 20',
-      answers: [
-        '20',
-        '2',
-        '12',
-        '10'
-      ],
-      correctAnswer: '10'
-    },
-    {
-      question: 'Subtract 75 - 13',
-      answers: [
-        '60',
-        '51',
-        '52',
-        '62'
-      ],
-      correctAnswer: '62'
-    }
+    question: 'Add 2 + 2',
+    answers: [
+      '1',
+      '4',
+      '2',
+      '6'
+    ],
+    correctAnswer: '4'
+  },
+  {
+    question: 'Divide 50 / 5',
+    answers: [
+      '20',
+      '15',
+      '10',
+      '5'
+    ],
+    correctAnswer: '10'
+  },
+  {
+    question: 'Multiply 3 * 12',
+    answers: [
+      '24',
+      '36',
+      '42',
+      '30'
+    ],
+    correctAnswer: '36'
+  },
+  {
+    question: 'Divide 200 / 20',
+    answers: [
+      '20',
+      '2',
+      '12',
+      '10'
+    ],
+    correctAnswer: '10'
+  },
+  {
+    question: 'Subtract 75 - 13',
+    answers: [
+      '60',
+      '51',
+      '52',
+      '62'
+    ],
+    correctAnswer: '62'
+  }
   ],
   quizStarted: false,
   questionNumber: 0,
   score: 0
 };
-
-/*NAME LOOP PRACTICE
-let store.questions.*/
-function loopQuestionName(store){
-  for(let i=0;i<store.questions;i++){
-    console.log(questions[i].question);
-  }
-  }
-
-  console.log(loopQuestionName(store));
 
 /**
  * 
@@ -173,9 +152,30 @@ function loopQuestionName(store){
 
 // This function conditionally replaces the contents of the <main> tag based on the state of the store
 
+const mainPage =`<section class="page-1">  <h1>Let's start a Math Quiz</h1>  <button>Start</button></section>`;//Declares starting content
+
+function isCorrect ();//finds out if answer is correct
+
+function renderItems(item){ //loops through qustions and adds to array
+  let template= [];
+  for (let i = 0; i < item.questions; i++){
+    template.push(createTemplate(item[i],i));
+    pull()//remove question answer so it does not display
+  }
+}
+
+
 /********** EVENT HANDLER FUNCTIONS **********/
 
 // These functions handle events (submit, click, etc)
+// || adjust below to call from store object instead
+function changePage() {
+  $('section').click('button', event => {
+    $('section').replaceWith(firstPage);
+  });
+}
+
+
 
 
 //USER REQUIREMENTS
