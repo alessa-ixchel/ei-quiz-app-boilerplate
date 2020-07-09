@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 'use strict';
 
 const mainPage =
@@ -40,19 +41,14 @@ function changePage() {
   });
 }
 
-/*NAME LOOP PRACTICE
-let store.questions.
-function loopQuestionName(names){
-for(let i=0;i<)
-}
 
-*/
-function createTemplate() {
+
+function createTemplate(index, obj) {
   return `<section class="page=2">
-  <h2>Question One</h2> 
-    <h3>store.questions.question[i]</h3>
+  <h2>Question 2</h2> 
+    <h3>obj.questions[index.question]</h3>
     <ul>
-        <li>5</li>
+        <li>store.questions[i.answers[0]]</li>
         <li>10</li>
         <li>4</li>
         <li>235</li>
@@ -73,19 +69,19 @@ function createTemplate() {
     </section>`;
 }
 
-function practice() {
+/*function practice() {
   initialPage();
   changePage();
 }
 
-$(practice);
+$(practice);*/
 /*IDEA TO ACCESS QUESTION NAME
 store.questions[i]{
   return questions.question
 }
 /**
 Example store structure
-store.questions.question[i]
+store.questions.question[i]*/
 const store = {
   // 5 or more questions are required
   questions: [{
@@ -143,8 +139,16 @@ const store = {
   questionNumber: 0,
   score: 0
 };
-*/
 
+/*NAME LOOP PRACTICE
+let store.questions.*/
+function loopQuestionName(store){
+  for(let i=0;i<store.questions;i++){
+    console.log(questions[i].question);
+  }
+  }
+
+  console.log(loopQuestionName(store));
 
 /**
  * 
