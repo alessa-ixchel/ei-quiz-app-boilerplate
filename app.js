@@ -59,7 +59,7 @@ const store = {
     correctAnswer: '62'
   }
   ],
-  quizStarted: false,
+  quizStarted: true,
   questionNumber: 0,
   score: 0
 };
@@ -89,25 +89,46 @@ for (let i=0; i<)
 /********** TEMPLATE GENERATION FUNCTIONS **********/
 
 // These functions return HTML templates
-const mainPage =`<section class="page-1">  <h1>Let's start a Math Quiz</h1>  <button>Start</button></section>`;//Declares starting content
+/*const mainPage =`<section class="page-1">  <h1>Let's start a Math Quiz</h1>  <button>Start</button></section>`;//Declares starting content
 
 const questionPlacement= //declares which question we are on
 
 /********** RENDER FUNCTION(S) **********/
 //render should read from store, generates html, replaces html (use.html() function)
 // || This function conditionally replaces the contents of the <main> tag based on the state of the store
-function initialPage() {//initiates page with first page
+/*function initialPage() {//initiates page with first page
   $('main').append(mainPage);
 }
-function isCorrect ();//finds out if answer is correct
+function isCorrect ();//finds out if answer is correct */
+
+function createTemplate(item, i) { //for loop goes in this function
+  return `${item.questions[i]}
+  <h2>${item.questions[i.question]}</h2> 
+        <label><input type="radio" name="answer">${item.questions[i.answers[0]]}</label>
+        <label><input type="radio" name="answer">${item.questions[i.answers[1]]}</label>
+        <label><input type="radio" name="answer">${item.questions[i.answers[2]]}</label>
+        <label><input type="radio" name="answer">${item.questions[i.answers[3]]}</label>
+    <div class="score">[
+        <span class="dot 1"></span>
+        <span class="dot 2"></span>
+        <span class="dot 3"></span>
+        <span class="dot 4"></span>
+        <span class="dot 5"></span>
+    ]
+    </div>
+    <div class="progress">
+        <span class="current-number"></span>
+    </div>
+    <button>Submit</button>
+    
+    </section>`;
+}
+
 
 function renderItems(item){ //loops through qustions and adds to array
- // if (quizStarted){
-    let template= [];
-    store.question;
-      template.push(createTemplate(item[i],i));
-      pull()//remove question answer so it does not display
-    }
+    let display = quizStarted ? $('main').push(createTemplate(store,1):;
+    return display;
+   }
 
 
 
@@ -116,7 +137,7 @@ function renderItems(item){ //loops through qustions and adds to array
 
 // These functions handle events (submit, click, etc)
 // || adjust below to call from store object instead
-function changePage() {
+/*function changePage() {
   $('section').click('button', event => {
     $('section').replaceWith(firstPage);
   });
@@ -130,7 +151,7 @@ function changePage() {
 $(practice);*/
 
 /****practice that worked ****/
-const firstPage = //original idea to present questions (works)
+/*const firstPage = //original idea to present questions (works)
   `<section class="page=2">
 <h2>Question One</h2>
 <h3>What is 2 + 2?</h3>
@@ -151,32 +172,7 @@ const firstPage = //original idea to present questions (works)
     <span class="current-number"></span>
 </div>
 <button>Submit</button>
-</section>`;
-
-function createTemplate(item, i) { //for loop goes in this function
-  return `${item.questions[i]}
-  <h2>${item.questions.question}</h2> 
-    <ul>
-        <li>store.questions[i.answers[0]]</li>
-        <li>10</li>
-        <li>4</li>
-        <li>235</li>
-    </ul>
-    <div class="score">[
-        <span class="dot 1"></span>
-        <span class="dot 2"></span>
-        <span class="dot 3"></span>
-        <span class="dot 4"></span>
-        <span class="dot 5"></span>
-    ]
-    </div>
-    <div class="progress">
-        <span class="current-number"></span>
-    </div>
-    <button>Submit</button>
-    
-    </section>`;
-}
+</section>`;*/
 
 //USER REQUIREMENTS
 //one at a time
