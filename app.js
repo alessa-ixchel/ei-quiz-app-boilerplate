@@ -59,10 +59,10 @@ const store = {
   {
     question: 'Divide 50 / 5',
     answers: [
-      '20',
-      '15',
-      '10',
-      '5'
+      <button>'20'</button>,
+      <button>'15'</button>,
+      <button>'10'</button>,
+      <button>'5'</button>
     ],
     correctAnswer: '10'
   },
