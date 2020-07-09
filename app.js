@@ -87,19 +87,19 @@ for (let i=0; i<)
  */
 
 /********** TEMPLATE GENERATION FUNCTIONS **********/
-
+function initialPage() {//initiates page with first page
+  $('main').append(mainPage);
+}
 // These functions return HTML templates
-/*const mainPage =`<section class="page-1">  <h1>Let's start a Math Quiz</h1>  <button>Start</button></section>`;//Declares starting content
+const mainPage =`<section class="page-1">  <h1>Let's start a Math Quiz</h1>  <button>Start</button></section>`;//Declares starting content
 
-const questionPlacement= //declares which question we are on
+/*const questionPlacement= //declares which question we are on
 
 /********** RENDER FUNCTION(S) **********/
 //render should read from store, generates html, replaces html (use.html() function)
 // || This function conditionally replaces the contents of the <main> tag based on the state of the store
-/*function initialPage() {//initiates page with first page
-  $('main').append(mainPage);
-}
-function isCorrect ();//finds out if answer is correct */
+
+//function isCorrect ();//finds out if answer is correct */
 
 function createTemplate(item, i) { //for loop goes in this function
   return `${item.questions[i]}
@@ -126,11 +126,15 @@ function createTemplate(item, i) { //for loop goes in this function
 
 
 function renderItems(item){ //loops through qustions and adds to array
-    let display = quizStarted ? $('main').push(createTemplate(store,1):;
+    let display = item.quizStarted ? $('main').push(createTemplate(store,1)):initialPage();
     return display;
    }
 
-
+$(function callAllItems(store) {
+  createTemplate(store);
+  renderItems(store);
+  initialPage();
+});
 
 
 /********** EVENT HANDLER FUNCTIONS **********/
