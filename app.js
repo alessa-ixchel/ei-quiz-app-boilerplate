@@ -1,14 +1,13 @@
 'use strict';
-$ {store.questions[0]};
 
-const mainPage = 
-    `<section class="page-1">
+const mainPage =
+  `<section class="page-1">
         <h1>Let's start a Math Quiz</h1>
             <button>Start</button>
      </section>`;
 
 const firstPage =
-`<section class="page=2">
+  `<section class="page=2">
 <h2>Question One</h2>
 <h3>What is 2 + 2?</h3>
 <ul>
@@ -32,31 +31,39 @@ const firstPage =
 </section>`;
 
 function initialPage() {
-  $('main').append(mainPage); 
+  $('main').append(mainPage);
 }
 
 function changePage() {
-  $('section').click('button',event=>{
+  $('section').click('button', event => {
     $('section').replaceWith(firstPage);
   });
 }
 
+/*NAME LOOP PRACTICE
+let store.questions.
+function loopQuestionName(names){
+for(let i=0;i<)
+}
+
+*/
 function createTemplate() {
   return `<section class="page=2">
-    <h2>Question One</h2>
-    <h3>store.</h3>
+  <h2>Question One</h2> 
+    <h3>store.questions.question[i]</h3>
     <ul>
         <li>5</li>
         <li>10</li>
         <li>4</li>
         <li>235</li>
     </ul>
-    <div class="score">
+    <div class="score">[
         <span class="dot 1"></span>
         <span class="dot 2"></span>
         <span class="dot 3"></span>
         <span class="dot 4"></span>
         <span class="dot 5"></span>
+    ]
     </div>
     <div class="progress">
         <span class="current-number"></span>
@@ -72,10 +79,13 @@ function practice() {
 }
 
 $(practice);
-
+/*IDEA TO ACCESS QUESTION NAME
+store.questions[i]{
+  return questions.question
+}
 /**
- * Example store structure
- */
+Example store structure
+store.questions.question[i]
 const store = {
   // 5 or more questions are required
   questions: [{
@@ -133,7 +143,8 @@ const store = {
   questionNumber: 0,
   score: 0
 };
-$('main').html('Lets Start a Quiz!');
+*/
+
 
 /**
  * 
