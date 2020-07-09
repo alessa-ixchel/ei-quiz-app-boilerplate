@@ -1,12 +1,11 @@
 'use strict';
-
+$ {store.questions[0]};
 /**
  * Example store structure
  */
 const store = {
   // 5 or more questions are required
-  questions: [
-    {
+  questions: [{
       question: 'Add 2 + 2',
       answers: [
         '1',
@@ -61,6 +60,7 @@ const store = {
   questionNumber: 0,
   score: 0
 };
+$('main').html('Lets Start a Quiz!');
 
 /**
  * 
