@@ -65,8 +65,6 @@ const store = {
   
 };
 
-
-
 //delares content of main page
 const mainPage = 
   
@@ -141,7 +139,13 @@ function renderAnotherTemplate(obj,index) {
 //generates response pages
 function anotherChangePage() {
   $('main').on('click','button.submit',event=>{
-    $('section').replaceWith(renderAnotherTemplate(store,0));
+    const answerValue = $('input[name="answer"]:checked' ).val();
+    if (answerValue){
+      $('section').replaceWith(renderAnotherTemplate(store,0));
+    }
+    else {
+      $('section').append('<p>Please choose an answer!</p>');
+    }
   });
 }
 
