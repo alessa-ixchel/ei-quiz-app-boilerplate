@@ -1,11 +1,18 @@
 /* eslint-disable no-undef */
-
 'use strict';
 
+//USER REQUIREMENTS
+//one at a time
+//Display which question number user is on
+//Display number correct with jQuery
+//If answer is correct, move forward, otherwise ask to correct with if/else statementS
+//Show results at end
+
+//TECHNICAL REQUIREMENTS
+//Create a function
 
 
-/*Example store structure
-store.questions.question[i]*/
+//Example store structure
 // 5 or more questions are required
 const store = {
   questions: [{
@@ -61,10 +68,86 @@ const store = {
   ],
   quizStarted: true,
   questionNumber: 0,
-  score: 0
+  score: 0,
+  correct:'Good job!',
+  incorrect: 'Nope, sorry!'
 };
 
+const mainPage = 
+    `<section class="page-1">
+        <h1>Let's start a Math Quiz</h1>
+            <button>Start</button>
+     </section>`;
 
+//initiates page with first page
+function initialPage() {
+  $('main').append(mainPage); 
+}
+
+//creates template for question pages
+function createTemplate(obj, index) {
+  return `<section class="page-number">
+    <h3>${obj.questions[index].question}</h3>
+      <label><input type="radio" name="answer">${obj.questions[index].answers[0]}</label>
+      <label><input type="radio" name="answer">${obj.questions[index].answers[1]}</label>
+      <label><input type="radio" name="answer">${obj.questions[index].answers[2]}</label>
+      <label><input type="radio" name="answer">${obj.questions[index].answers[3]}</label>
+    <div class="score">
+       <p>${obj.score}</p>
+    </div>
+    <div class="progress">
+        <span class="current-number">${obj.questionNumber}</span>
+    </div>
+    <button class="submit">Submit</button>
+  </section>`;
+}
+
+//renders template function
+function renderTemplate(obj){
+  if (obj.quizStarted === true)
+  return createTemplate(store,0);
+}
+/*function renderItems(item){ 
+  let display = item.quizStarted ? $('main').push(createTemplate(store,1)):initialPage();
+  return display;
+}*/
+
+//generates question pages/event listener
+function changePage() {
+  $('section').click('button',event=>{
+    $('section').replaceWith(renderTemplate(store));
+  });
+}
+
+//creates response pages
+function anotherTemplate(obj,key) {
+  return `<section>
+    <h3>${obj[key]}</h3>
+  </section>`;
+}
+
+//renders response pages
+function renderAnotherTemplate(obj,index) {
+  const answerValue = $('input[name=answer]:checked').val();
+  if (answerValue === obj.questions[index].correctAnswer){
+    return anotherTemplate(store,'correct');
+  }
+}
+
+//generates response pages
+function anotherChangePage() {
+  $('section').click('button',event=>{
+    $('section').replaceWith(renderAnotherTemplate(store,0));
+  });
+}
+
+function runFunctions(){
+  initialPage();
+  changePage();
+  anotherTemplate();
+}
+
+$(runFunctions);
 
 /**
  * 
@@ -83,57 +166,18 @@ const store = {
 
 /********** TEMPLATE GENERATION FUNCTIONS **********/
 // These functions return HTML templates
-const mainPage ='<section class="page-1"><h1>Let\'s start a Math Quiz</h1><button >Start</button></section>';
+
 //const rightPage = '<section class="correctPage"><h1>Yay, you were correct!</h1><button>Next</button></section>';
 //const wrongPage = '<section class="wrongPage"><h1>Oh no, you were wrong!</h1><button>Next</button></section>' ;
-
-/*const questionPlacement= //declares which question we are on
+//const questionPlacement= //declares which question we are on
 
 /********** RENDER FUNCTION(S) **********/
 //render should read from store, generates html, replaces html (use.html() function)
 // || This function conditionally replaces the contents of the <main> tag based on the state of the store
 
-//function isCorrect ();//finds out if answer is correct */
-function initialPage() {//initiates page with first page
-  $('main').append(mainPage);
-}
+//function isCorrect ();//finds out if answer is correct 
+
 //function changePage(item,somethingThatDeclaresWhereToGo){}
-function createTemplate(item, i) { 
-  return `${item.questions[i]}
-  <h2>${item.questionsquestion[i]}</h2> 
-        <label><input type="radio" name="answer">${item.questions[answers[0]]}</label>
-        <label><input type="radio" name="answer">${item.questions[answers[1]]}</label>
-        <label><input type="radio" name="answer">${item.questions[answers[2]]}</label>
-        <label><input type="radio" name="answer">${item.questions[answers[3]]}</label>
-    <div class="score">[
-        <span class="dot 1"></span>
-        <span class="dot 2"></span>
-        <span class="dot 3"></span>
-        <span class="dot 4"></span>
-        <span class="dot 5"></span>
-    ]
-    </div>
-    <div class="progress">
-        <span class="current-number"></span>
-    </div>
-    <button>Submit</button>
-    
-    </section>`;
-}
-
-
-function renderItems(item){ 
-  let display = item.quizStarted ? $('main').push(createTemplate(store,1)):initialPage();
-  return display;
-}
-
-function callAllItems() {
-  initialPage();
-  createTemplate(i);
-  renderItems();
-}
-callAllItems(store);
-
 
 /********** EVENT HANDLER FUNCTIONS **********/
 
@@ -151,6 +195,10 @@ callAllItems(store);
 }
 
 $(practice);*/
+
+
+
+
 
 /****practice that worked ****/
 /*const firstPage = //original idea to present questions (works)
@@ -176,12 +224,3 @@ $(practice);*/
 <button>Submit</button>
 </section>`;*/
 
-//USER REQUIREMENTS
-//one at a time
-//Display which question number user is on
-//Display number correct with jQuery
-//If answer is correct, move forward, otherwise ask to correct with if/else statementS
-//Show results at end
-
-//TECHNICAL REQUIREMENTS
-//Create a function
