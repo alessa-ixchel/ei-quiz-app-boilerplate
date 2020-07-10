@@ -67,8 +67,8 @@ const store = {
   }
   ],
   quizStarted: true,
-  questionNumber: 0,
-  score: 0,
+  questionNumber: 1,
+  score: 1,
   correct:'Good job!',
   incorrect: 'Nope, sorry!'
 };
@@ -88,10 +88,12 @@ function initialPage() {
 function createTemplate(obj, index) {
   return `<section class="page-number">
     <h3>${obj.questions[index].question}</h3>
+    <div>
       <label><input type="radio" name="answer">${obj.questions[index].answers[0]}</label>
       <label><input type="radio" name="answer">${obj.questions[index].answers[1]}</label>
       <label><input type="radio" name="answer">${obj.questions[index].answers[2]}</label>
       <label><input type="radio" name="answer">${obj.questions[index].answers[3]}</label>
+    </div>
     <div class="score">
        <p>${obj.score}</p>
     </div>
@@ -131,7 +133,7 @@ function anotherTemplate(obj,key) {
 
 //renders response pages
 function renderAnotherTemplate(obj,index) {
-  const answerValue = $('input[name=answer]:checked').val();
+  const answerValue = $('input[type =radio][name=answer]:checked').val();
   if (answerValue === obj.questions[index].correctAnswer){
     return anotherTemplate(store,'correct');
   }
