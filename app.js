@@ -104,8 +104,9 @@ function createTemplate(obj, index) {
 
 //renders template function
 function renderTemplate(obj){
-  if (obj.quizStarted === true)
-  return createTemplate(store,0);
+  if (obj.quizStarted === true){
+    return createTemplate(store,0);
+  }
 }
 /*function renderItems(item){ 
   let display = item.quizStarted ? $('main').push(createTemplate(store,1)):initialPage();
