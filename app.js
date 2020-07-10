@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 
 'use strict';
 
@@ -5,9 +6,8 @@
 
 /*Example store structure
 store.questions.question[i]*/
+// 5 or more questions are required
 const store = {
-
-  // 5 or more questions are required
   questions: [{
     question: 'Add 2 + 2',
     answers: [
@@ -64,11 +64,6 @@ const store = {
   score: 0
 };
 
-/*
-for (let i=0; i<)
-
-
-*/
 
 
 /**
@@ -87,11 +82,10 @@ for (let i=0; i<)
  */
 
 /********** TEMPLATE GENERATION FUNCTIONS **********/
-function initialPage() {//initiates page with first page
-  $('main').append(mainPage);
-}
 // These functions return HTML templates
-const mainPage =`<section class="page-1">  <h1>Let's start a Math Quiz</h1>  <button>Start</button></section>`;//Declares starting content
+const mainPage ='<section class="page-1"><h1>Let\'s start a Math Quiz</h1><button >Start</button></section>';
+//const rightPage = '<section class="correctPage"><h1>Yay, you were correct!</h1><button>Next</button></section>';
+//const wrongPage = '<section class="wrongPage"><h1>Oh no, you were wrong!</h1><button>Next</button></section>' ;
 
 /*const questionPlacement= //declares which question we are on
 
@@ -100,14 +94,17 @@ const mainPage =`<section class="page-1">  <h1>Let's start a Math Quiz</h1>  <bu
 // || This function conditionally replaces the contents of the <main> tag based on the state of the store
 
 //function isCorrect ();//finds out if answer is correct */
-
-function createTemplate(item, i) { //for loop goes in this function
+function initialPage() {//initiates page with first page
+  $('main').append(mainPage);
+}
+//function changePage(item,somethingThatDeclaresWhereToGo){}
+function createTemplate(item, i) { 
   return `${item.questions[i]}
-  <h2>${item.questions[i.question]}</h2> 
-        <label><input type="radio" name="answer">${item.questions[i.answers[0]]}</label>
-        <label><input type="radio" name="answer">${item.questions[i.answers[1]]}</label>
-        <label><input type="radio" name="answer">${item.questions[i.answers[2]]}</label>
-        <label><input type="radio" name="answer">${item.questions[i.answers[3]]}</label>
+  <h2>${item.questionsquestion[i]}</h2> 
+        <label><input type="radio" name="answer">${item.questions[answers[0]]}</label>
+        <label><input type="radio" name="answer">${item.questions[answers[1]]}</label>
+        <label><input type="radio" name="answer">${item.questions[answers[2]]}</label>
+        <label><input type="radio" name="answer">${item.questions[answers[3]]}</label>
     <div class="score">[
         <span class="dot 1"></span>
         <span class="dot 2"></span>
@@ -125,16 +122,17 @@ function createTemplate(item, i) { //for loop goes in this function
 }
 
 
-function renderItems(item){ //loops through qustions and adds to array
-    let display = item.quizStarted ? $('main').push(createTemplate(store,1)):initialPage();
-    return display;
-   }
+function renderItems(item){ 
+  let display = item.quizStarted ? $('main').push(createTemplate(store,1)):initialPage();
+  return display;
+}
 
-$(function callAllItems(store) {
-  createTemplate(store);
-  renderItems(store);
+function callAllItems() {
   initialPage();
-});
+  createTemplate(i);
+  renderItems();
+}
+callAllItems(store);
 
 
 /********** EVENT HANDLER FUNCTIONS **********/
