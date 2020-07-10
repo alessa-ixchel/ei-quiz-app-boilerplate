@@ -76,7 +76,7 @@ const store = {
 const mainPage = 
     `<section class="page-1">
         <h1>Let's start a Math Quiz</h1>
-            <button>Start</button>
+            <button class="start">Start</button>
      </section>`;
 
 //initiates page with first page
@@ -105,7 +105,7 @@ function createTemplate(obj, index) {
 //renders template function
 function renderTemplate(obj){
   if (obj.quizStarted === true)
-  return createTemplate(store,0);
+    return createTemplate(store,0);
 }
 /*function renderItems(item){ 
   let display = item.quizStarted ? $('main').push(createTemplate(store,1)):initialPage();
@@ -114,7 +114,7 @@ function renderTemplate(obj){
 
 //generates question pages/event listener
 function changePage() {
-  $('section').click('button',event=>{
+  $('main').on('click','button.start',event=>{
     $('section').replaceWith(renderTemplate(store));
   });
 }
@@ -123,6 +123,7 @@ function changePage() {
 function anotherTemplate(obj,key) {
   return `<section>
     <h3>${obj[key]}</h3>
+    <button class = "next">Next</button>
   </section>`;
 }
 
@@ -132,11 +133,14 @@ function renderAnotherTemplate(obj,index) {
   if (answerValue === obj.questions[index].correctAnswer){
     return anotherTemplate(store,'correct');
   }
+  else{
+    return anotherTemplate(store,'incorrect');
+  }
 }
 
 //generates response pages
 function anotherChangePage() {
-  $('section').click('button',event=>{
+  $('main').on('click','button.submit',event=>{
     $('section').replaceWith(renderAnotherTemplate(store,0));
   });
 }
@@ -144,7 +148,7 @@ function anotherChangePage() {
 function runFunctions(){
   initialPage();
   changePage();
-  anotherTemplate();
+  anotherChangePage();
 }
 
 $(runFunctions);
