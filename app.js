@@ -73,13 +73,17 @@ const store = {
   incorrect: 'Nope, sorry!'
 };
 
+
+
+//delares content of main page
 const mainPage = 
+  
     `<section class="page-1">
         <h1>Let's start a Math Quiz</h1>
             <button class="start">Start</button>
      </section>`;
 
-//initiates page with first page
+//initiates first page
 function initialPage() {
   $('main').append(mainPage); 
 }
