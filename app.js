@@ -57,7 +57,7 @@ const store = {
     correctAnswer: '62'
   }
   ],
-  quizStarted: true,
+  quizStarted: false,
   questionNumber: 1,
   score: 1,
   correct:'Good job!',
@@ -105,7 +105,6 @@ function renderTemplate(obj){
   if (obj.quizStarted === true){
     return createTemplate(store,0);
   }
-
 }
 /*function renderItems(item){ 
   let display = item.quizStarted ? $('main').push(createTemplate(store,1)):initialPage();
@@ -115,6 +114,7 @@ function renderTemplate(obj){
 //generates question pages/event listener
 function changePage() {
   $('main').on('click','button.start',event=>{
+    store.quizStarted= true;
     $('section').replaceWith(renderTemplate(store));
   });
 }
@@ -129,7 +129,7 @@ function anotherTemplate(obj,key) {
 
 //renders response pages
 function renderAnotherTemplate(obj,index) {
-  const answerValue = $('input[name="answer"]:checked').val();
+  const answerValue = $('input[name="answer"]:checked' ).val();
   if (answerValue === obj.questions[index].correctAnswer){
     return anotherTemplate(store,'correct');
   }
