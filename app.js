@@ -58,11 +58,12 @@ const store = {
   }
   ],
   quizStarted: false,
-  questionNumber: 1,
-  score: 1,
+  questionNumber: 5,
+  score: 4,
   correct:'Good job!',
-  incorrect: 'Nope, sorry!'
-  
+  incorrect: 'Nope, sorry!',
+  resultsPass: 'You passed!',
+  resultsFail: 'Sorry, you failed. Try again!'
 };
 
 //delares content of main page
@@ -148,11 +149,39 @@ function anotherChangePage() {
     }
   });
 }
-//testing branch
+
+//creates results page
+function resultsTemplate(obj,key) {
+  return `<section>
+    <h1>${obj[key]}</h1>
+    <p>You received ${obj.score} out of 5 correct.</p>
+    <button class="start">Restart</button>
+  </section>`;
+}
+
+//renders results page
+function rendersResults(obj) {
+  if (obj.score >= 3 && obj.questionNumber === 5) {
+    return resultsTemplate(store,'resultsPass');
+  }
+  else if (obj.score < 3 && obj.questionNumber === 5) {
+    return resultsTemplate(store,'resultsFail');
+  }
+}
+
+//generates results page
+function generatesResults() {
+  $('main').on('click','button.next', event=>{
+    $('section').replaceWith(rendersResults(store));
+  });
+}
+
+
 function runFunctions(){
   initialPage();
   changePage();
   anotherChangePage();
+  generatesResults();
 }
 
 $(runFunctions);
