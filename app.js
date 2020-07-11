@@ -98,7 +98,7 @@ function questionTemplate(obj, index) {
 }
 //creates response pages
 function responseTemplate(obj,key) {
-  obj.questionNumber ++;
+  //obj.questionNumber ++;
   return `<section>
     <h3>${obj[key]}</h3>
     <h4>${scoreSentence}${obj.score}</h4>
@@ -123,6 +123,8 @@ function startRender() {
 function startQuiz(obj){
   if (obj.quizStarted === true){
     return questionTemplate(store,index);
+  } else{
+    return scoreQuiz(store);
   }
 }
 //generates question pages/event listener
@@ -143,14 +145,17 @@ function responseRender(obj,index) {
     obj.score = (obj.numberCorrect/obj.questions.length*100);
     return responseTemplate(store,'correct');
   }
-  else{
+  else {
     return responseTemplate(store,'incorrect');
   }
+
+  
 }
 
 //generates response pages
 function checkAnswer() {
   $('main').on('click','button.submit',event=>{
+    store.questionNumber ++;
     const answerValue = $('input[name="answer"]:checked' ).val();
     if (answerValue){
       $('section').replaceWith(responseRender(store,index));
@@ -164,10 +169,16 @@ function checkAnswer() {
 function nextQuestion(){
   $('main').on('click','button.next',event=>{
     index++;
-    $('section').replaceWith(startQuiz(store));
+    console.log(store.questionNumber);
+    if (store.questionNumber <= store.questions.length){
+      $('section').replaceWith(startQuiz(store));
+    }else{
+      $('section').replaceWith(scoreQuiz(store));
+    }
   });
 }
 function scoreQuiz(obj){
+  console.log(obj.questionNumber);
   if (obj.questionNumber === obj.questions.length){
     $('main').on('click','button.next',event=>{
       $('section').replaceWith(resultsTemplate(store));
@@ -178,13 +189,20 @@ function scoreQuiz(obj){
 function runFunctions(){
   startRender();
   quizRender();
-  checkAnswer();
+  checkAnswer(); 
   nextQuestion();
   scoreQuiz();
 }
 
 $(runFunctions);
-
+/* if (store.questionNumber === store.questions.length){
+    store.quizStarted = false;
+    scoreQuiz();
+  }
+  else{ 
+    nextQuestion();
+  }
+ */ 
 /**
  * 
  * Technical requirements:
