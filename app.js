@@ -67,7 +67,7 @@ const store = {
 };
 //create a sentence template that can be reused when declaring the score later
 let scoreSentence= 'Current score =';
-
+let index=0;
 
 //delares content of main page
 const startTemplate = 
@@ -105,12 +105,6 @@ function responseTemplate(obj,key) {
     <button class = "next">Next</button>
   </section>`;
 }
-//create next question function
-function nextQuestion(){
-  $('main').on('click','button.next',event=>{
-    $('section').replaceWith(startQuiz(store));
-  });
-}
 
 //initiates first page
 function startRender() {
@@ -120,7 +114,7 @@ function startRender() {
 //renders template function
 function startQuiz(obj){
   if (obj.quizStarted === true){
-    return questionTemplate(store,0);
+    return questionTemplate(store,index);
   }
 }
 //generates question pages/event listener
@@ -136,6 +130,7 @@ function quizRender() {
 function responseRender(obj,index) {
   const answerValue = $('input[name="answer"]:checked' ).val();
   if (answerValue === obj.questions[index].correctAnswer){
+    
     obj.numberCorrect ++;
     obj.score = (obj.numberCorrect/obj.questions.length*100);
     return responseTemplate(store,'correct');
@@ -150,11 +145,18 @@ function checkAnswer() {
   $('main').on('click','button.submit',event=>{
     const answerValue = $('input[name="answer"]:checked' ).val();
     if (answerValue){
-      $('section').replaceWith(responseRender(store,0));
+      $('section').replaceWith(responseRender(store,index));
     }
     else {
       $('section').append('<p>Please choose an answer!</p>');
     }
+  });
+}
+//create next question function
+function nextQuestion(){
+  $('main').on('click','button.next',event=>{
+    index++;
+    $('section').replaceWith(startQuiz(store));
   });
 }
 
