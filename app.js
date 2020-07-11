@@ -59,89 +59,90 @@ const store = {
   ],
   quizStarted: false,
   questionNumber: 1,
-  score: 1,
+  score: 0,
   correct:'Good job!',
   incorrect: 'Nope, sorry!'
   
 };
 
 //delares content of main page
-const mainPage = 
-  
-    `<section class="page-1">
-        <h1>Let's start a Math Quiz</h1>
-            <button class="start">Start</button>
-     </section>`;
+const startTemplate = 
+`<section class="page-1">
+  <h1>Let's start a Math Quiz</h1>
+  <button class="start">Start</button>
+</section>`;
 
-//initiates first page
-function initialPage() {
-  $('main').append(mainPage); 
-}
 
 //creates template for question pages
-function createTemplate(obj, index) {
-  return `<section class="page-number">
+function questionTemplate(obj, index) {
+  return `<form class="qTemp">
     <h3>${obj.questions[index].question}</h3>
-    <div>
+    <div class="choices">
       <label><input type="radio" name="answer" value= "${obj.questions[index].answers[0]}">${obj.questions[index].answers[0]}</label>
       <label><input type="radio" name="answer" value= "${obj.questions[index].answers[1]}">${obj.questions[index].answers[1]}</label>
       <label><input type="radio" name="answer" value= "${obj.questions[index].answers[2]}">${obj.questions[index].answers[2]}</label>
       <label><input type="radio" name="answer" value= "${obj.questions[index].answers[3]}">${obj.questions[index].answers[3]}</label>
     </div>
     <div class="score">
-       <p>${obj.score}</p>
+       <p>Current score = ${obj.score}</p>
     </div>
     <div class="progress">
-        <span class="current-number">${obj.questionNumber}</span>
+        <span class="current-number">Question ${obj.questionNumber} out of ${obj.questions.length}</span>
     </div>
     <button class="submit">Submit</button>
-  </section>`;
+  </form>`;
 }
-
-//renders template function
-function renderTemplate(obj){
-  if (obj.quizStarted === true){
-    return createTemplate(store,0);
-  }
-}
-/*function renderItems(item){ 
-  let display = item.quizStarted ? $('main').push(createTemplate(store,1)):initialPage();
-  return display;
-}*/
-
-//generates question pages/event listener
-function changePage() {
-  $('main').on('click','button.start',event=>{
-    store.quizStarted= true;
-    $('section').replaceWith(renderTemplate(store));
-  });
-}
-
 //creates response pages
-function anotherTemplate(obj,key) {
+function responseTemplate(obj,key) {
   return `<section>
     <h3>${obj[key]}</h3>
+
     <button class = "next">Next</button>
   </section>`;
 }
 
+//initiates first page
+function startRender() {
+  $('main').append(startTemplate); 
+}
+
+
+/*function renderItems(item){ 
+  let display = item.quizStarted ? $('main').push(questionTemplate(store,1)):startRender();
+  return display;
+}*/
+//renders template function
+function startQuiz(obj){
+  if (obj.quizStarted === true){
+    return questionTemplate(store,0);
+  }
+}
+//generates question pages/event listener
+function quizRender() {
+  $('main').on('click','button.start',event=>{
+    store.quizStarted= true;
+    $('section').replaceWith(startQuiz(store));
+  });
+}
+
+
 //renders response pages
-function renderAnotherTemplate(obj,index) {
+function responseRender(obj,index) {
   const answerValue = $('input[name="answer"]:checked' ).val();
   if (answerValue === obj.questions[index].correctAnswer){
-    return anotherTemplate(store,'correct');
+    return responseTemplate(store,'correct');
   }
   else{
-    return anotherTemplate(store,'incorrect');
+    return responseTemplate(store,'incorrect');
   }
 }
 
 //generates response pages
-function anotherChangePage() {
+function checkAnswer() {
   $('main').on('click','button.submit',event=>{
     const answerValue = $('input[name="answer"]:checked' ).val();
     if (answerValue){
-      $('section').replaceWith(renderAnotherTemplate(store,0));
+      $('section').replaceWith(responseRender(store,0));
     }
     else {
       $('section').append('<p>Please choose an answer!</p>');
@@ -150,9 +151,11 @@ function anotherChangePage() {
 }
 
 function runFunctions(){
-  initialPage();
-  changePage();
-  anotherChangePage();
+  startRender();
+  quizRender();
+  checkAnswer();
+  //nextQuestion();
+  //scoreQuiz();
 }
 
 $(runFunctions);
@@ -198,7 +201,7 @@ $(runFunctions);
 }
 
 /*function practice() {
-  initialPage();
+  startRender();
   changePage();
 }
 
