@@ -77,8 +77,12 @@ const startTemplate =
   <button class="start">Start</button>
 </section>`;
 
+//initiates first page
+function startRender() {
+  $('main').append(startTemplate); 
+}
 
-//creates template for question pages
+//creates template for questions
 function questionTemplate(obj, index) {
   return `<section class="qTemp">
     <h3>${obj.questions[index].question}</h3>
@@ -97,6 +101,28 @@ function questionTemplate(obj, index) {
     <button class="submit">Submit</button>
   </section>`;
 }
+
+//renders template function for questions & final results
+/*function startQuiz(obj){
+  if (obj.quizStarted === true){
+    return questionTemplate(store,index);
+  } else{
+    return scoreQuiz(store);
+  }
+}*/
+
+function startQuiz(){
+  return questionTemplate(store,index);
+}
+
+//generates questions/event listener
+function quizRender() {
+  $('main').on('click','button.start',event=>{
+    //store.quizStarted= true;
+    $('section').replaceWith(startQuiz(store));
+  });
+}
+
 //creates response pages
 function responseTemplate(obj,key) {
   //obj.questionNumber ++;
@@ -107,62 +133,18 @@ function responseTemplate(obj,key) {
   </section>`;
 }
 
-function resultsTemplate(obj,key) {
-  return `<section>
-    <h1>Here are your results!</h1>
-    <h2>${obj[key]}</h2>
-    <p>You received ${obj.score} out of 5 correct.</p>
-    <button class="start">Restart</button>
-  </section>`;
-}
-
-//initiates first page
-function startRender() {
-  $('main').append(startTemplate); 
-}
-
-//renders template function
-function startQuiz(obj){
-  if (obj.quizStarted === true){
-    return questionTemplate(store,index);
-  } else{
-    return scoreQuiz(store);
-  }
-}
-//generates question pages/event listener
-function quizRender() {
-  $('main').on('click','button.start',event=>{
-    store.quizStarted= true;
-    $('section').replaceWith(startQuiz(store));
-  });
-}
-
-
 //renders response pages
 function responseRender(obj,index) {
   const answerValue = $('input[name="answer"]:checked' ).val();
   if (answerValue === obj.questions[index].correctAnswer){
-    
     obj.numberCorrect ++;
     obj.score = (obj.numberCorrect/obj.questions.length*100);
     return responseTemplate(store,'correct');
   }
   else {
     return responseTemplate(store,'incorrect');
-  }
-
-  
+  } 
 }
-function rendersResults(obj) {
-  if (obj.score >= 3 && obj.questionNumber === 5) {
-    return resultsTemplate(store,'resultsPass');
-  }
-  else if (obj.score < 3 && obj.questionNumber === 5) {
-    return resultsTemplate(store,'resultsFail');
-  }
-}
-
-
 
 //generates response pages
 function checkAnswer() {
@@ -177,8 +159,9 @@ function checkAnswer() {
     }
   });
 }
+
 //create next question function
-function nextQuestion(){
+/*function nextQuestion(){
   $('main').on('click','button.next',event=>{
     index++;
     if (store.questionNumber <= store.questions.length){
@@ -187,23 +170,64 @@ function nextQuestion(){
       $('section').replaceWith(scoreQuiz(store));
     }
   });
+}*/
+
+//create next question function
+function nextQuestion(){
+  $('main').on('click','button.next',event=>{
+    index++;
+    if (store.questionNumber <= store.questions.length){
+      $('section').replaceWith(startQuiz(store));
+    }else{
+      $('section').replaceWith(rendersResults(store));
+    }
+  });
 }
 
-function scoreQuiz(obj){
-  if (obj.questionNumber === obj.questions.length){
-    $('main').on('click','button.next',event=>{
-      $('section').replaceWith(resultsTemplate(store));
-    });
+//creates results template
+function resultsTemplate(obj,key) {
+  return `<section>
+    <h1>Here are your results!</h1>
+    <h2>${obj[key]}</h2>
+    <p>You received ${obj.score}</p>
+    <button class="restart">Restart</button>
+  </section>`;
+}
+
+//renders results 
+function rendersResults(obj) {
+  if (obj.score >= 60) {
+    return resultsTemplate(store,'resultsPass');
+  }
+  else {
+    return resultsTemplate(store,'resultsFail');
   }
 }
+
+function restartQuiz(obj) {
+  $('main').on('click','button.restart', event=>{
+    $('section').replaceWith(startTemplate());
+  });
+}
+
+
 //generates results page
-function generatesResults() {
+/*function generatesResults() {
   if (obj.questionNumber === obj.questions.length){
     $('main').on('click','button.next', event=>{
       $('section').replaceWith(rendersResults(store));
     });
   }
-}
+}*/
+
+/*function scoreQuiz(obj){
+  if (obj.questionNumber === obj.questions.length){
+    $('main').on('click','button.next',event=>{
+      $('section').replaceWith(resultsTemplate(store));
+    });
+  }
+}*/
+
 
 
 
@@ -214,6 +238,7 @@ function runFunctions(){
   checkAnswer(); 
   nextQuestion();
   generatesResults();
+  restartQuiz();
 }
 
 $(runFunctions);
