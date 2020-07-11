@@ -66,7 +66,8 @@ const store = {
   
 };
 //create a sentence template that can be reused when declaring the score later
-let scoreSentence= `Current score = `
+let scoreSentence= 'Current score =';
+
 
 //delares content of main page
 const startTemplate = 
@@ -97,11 +98,18 @@ function questionTemplate(obj, index) {
 }
 //creates response pages
 function responseTemplate(obj,key) {
+  obj.questionNumber ++;
   return `<section>
     <h3>${obj[key]}</h3>
     <h4>${scoreSentence}${obj.score}</h4>
     <button class = "next">Next</button>
   </section>`;
+}
+//create next question function
+function nextQuestion(){
+  $('main').on('click','button.next',event=>{
+    $('section').replaceWith(startQuiz(store));
+  });
 }
 
 //initiates first page
@@ -125,11 +133,11 @@ function quizRender() {
 
 
 //renders response pages
-function responseRender(obj,index,) {
+function responseRender(obj,index) {
   const answerValue = $('input[name="answer"]:checked' ).val();
   if (answerValue === obj.questions[index].correctAnswer){
     obj.numberCorrect ++;
-    obj.score += (obj.numberCorrect/obj.questions.length*100);
+    obj.score = (obj.numberCorrect/obj.questions.length*100);
     return responseTemplate(store,'correct');
   }
   else{
@@ -154,7 +162,7 @@ function runFunctions(){
   startRender();
   quizRender();
   checkAnswer();
-  //nextQuestion();
+  nextQuestion();
   //scoreQuiz();
 }
 
