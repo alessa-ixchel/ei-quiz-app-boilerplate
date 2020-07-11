@@ -105,6 +105,14 @@ function responseTemplate(obj,key) {
     <button class = "next">Next</button>
   </section>`;
 }
+function resultsTemplate(obj){
+  return `<section>
+    <h3>Here are your results!</h3>
+    <h4>${obj.score}</h4>
+    <button class = "restart">Try Again</button>
+  </section>`;
+}
+
 
 //initiates first page
 function startRender() {
@@ -162,7 +170,7 @@ function nextQuestion(){
 function scoreQuiz(obj){
   if (obj.questionNumber === obj.questions.length){
     $('main').on('click','button.next',event=>{
-      $('section').replaceWith(startQuiz(store));
+      $('section').replaceWith(resultsTemplate(store));
     });
   }
 }
@@ -172,7 +180,7 @@ function runFunctions(){
   quizRender();
   checkAnswer();
   nextQuestion();
-  scoreQuiz(store);
+  scoreQuiz();
 }
 
 $(runFunctions);
