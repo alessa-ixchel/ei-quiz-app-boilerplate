@@ -62,8 +62,9 @@ const store = {
   numberCorrect: 0,
   score: 0,
   correct:'Good job!',
-  incorrect: 'Nope, sorry!'
-  
+  incorrect: 'Nope, sorry!',
+  resultsPass: 'You Passed!',
+  resultsFail: 'Sorry, You failed. Try again!'
 };
 //create a sentence template that can be reused when declaring the score later
 let scoreSentence= 'Current score =';
@@ -105,14 +106,15 @@ function responseTemplate(obj,key) {
     <button class = "next">Next</button>
   </section>`;
 }
-function resultsTemplate(obj){
+
+function resultsTemplate(obj,key) {
   return `<section>
-    <h3>Here are your results!</h3>
-    <h4>${obj.score}</h4>
-    <button class = "restart">Try Again</button>
+    <h1>Here are your results!</h1>
+    <h2>${obj[key]}</h2>
+    <p>You received ${obj.score} out of 5 correct.</p>
+    <button class="start">Restart</button>
   </section>`;
 }
-
 
 //initiates first page
 function startRender() {
@@ -151,6 +153,16 @@ function responseRender(obj,index) {
 
   
 }
+function rendersResults(obj) {
+  if (obj.score >= 3 && obj.questionNumber === 5) {
+    return resultsTemplate(store,'resultsPass');
+  }
+  else if (obj.score < 3 && obj.questionNumber === 5) {
+    return resultsTemplate(store,'resultsFail');
+  }
+}
+
+
 
 //generates response pages
 function checkAnswer() {
@@ -169,7 +181,6 @@ function checkAnswer() {
 function nextQuestion(){
   $('main').on('click','button.next',event=>{
     index++;
-    console.log(store.questionNumber);
     if (store.questionNumber <= store.questions.length){
       $('section').replaceWith(startQuiz(store));
     }else{
@@ -177,24 +188,53 @@ function nextQuestion(){
     }
   });
 }
+
 function scoreQuiz(obj){
-  console.log(obj.questionNumber);
   if (obj.questionNumber === obj.questions.length){
     $('main').on('click','button.next',event=>{
       $('section').replaceWith(resultsTemplate(store));
     });
   }
 }
+//generates results page
+function generatesResults() {
+  if (obj.questionNumber === obj.questions.length){
+    $('main').on('click','button.next', event=>{
+      $('section').replaceWith(rendersResults(store));
+    });
+  }
+}
+
+
+
 
 function runFunctions(){
   startRender();
   quizRender();
   checkAnswer(); 
   nextQuestion();
-  scoreQuiz();
+  generatesResults();
 }
 
 $(runFunctions);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* if (store.questionNumber === store.questions.length){
     store.quizStarted = false;
     scoreQuiz();
