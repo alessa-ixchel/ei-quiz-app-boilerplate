@@ -59,11 +59,14 @@ const store = {
   ],
   quizStarted: false,
   questionNumber: 1,
+  numberCorrect: 0,
   score: 0,
   correct:'Good job!',
   incorrect: 'Nope, sorry!'
   
 };
+//create a sentence template that can be reused when declaring the score later
+let scoreSentence= `Current score = `
 
 //delares content of main page
 const startTemplate = 
@@ -75,28 +78,28 @@ const startTemplate =
 
 //creates template for question pages
 function questionTemplate(obj, index) {
-  return `<form class="qTemp">
+  return `<section class="qTemp">
     <h3>${obj.questions[index].question}</h3>
-    <div class="choices">
+    <form class="choices">
       <label><input type="radio" name="answer" value= "${obj.questions[index].answers[0]}">${obj.questions[index].answers[0]}</label>
       <label><input type="radio" name="answer" value= "${obj.questions[index].answers[1]}">${obj.questions[index].answers[1]}</label>
       <label><input type="radio" name="answer" value= "${obj.questions[index].answers[2]}">${obj.questions[index].answers[2]}</label>
       <label><input type="radio" name="answer" value= "${obj.questions[index].answers[3]}">${obj.questions[index].answers[3]}</label>
-    </div>
+    </form>
     <div class="score">
-       <p>Current score = ${obj.score}</p>
+       ${scoreSentence}${obj.score}
     </div>
     <div class="progress">
         <span class="current-number">Question ${obj.questionNumber} out of ${obj.questions.length}</span>
     </div>
     <button class="submit">Submit</button>
-  </form>`;
+  </section>`;
 }
 //creates response pages
 function responseTemplate(obj,key) {
   return `<section>
     <h3>${obj[key]}</h3>
-
+    <h4>${scoreSentence}${obj.score}</h4>
     <button class = "next">Next</button>
   </section>`;
 }
@@ -106,11 +109,6 @@ function startRender() {
   $('main').append(startTemplate); 
 }
 
-
-/*function renderItems(item){ 
-  let display = item.quizStarted ? $('main').push(questionTemplate(store,1)):startRender();
-  return display;
-}*/
 //renders template function
 function startQuiz(obj){
   if (obj.quizStarted === true){
@@ -127,9 +125,11 @@ function quizRender() {
 
 
 //renders response pages
-function responseRender(obj,index) {
+function responseRender(obj,index,) {
   const answerValue = $('input[name="answer"]:checked' ).val();
   if (answerValue === obj.questions[index].correctAnswer){
+    obj.numberCorrect ++;
+    obj.score += (obj.numberCorrect/obj.questions.length*100);
     return responseTemplate(store,'correct');
   }
   else{
