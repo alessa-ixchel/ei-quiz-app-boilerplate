@@ -148,7 +148,7 @@ function checkAnswer() {
       $('section').replaceWith(responseRender(store,index));
     }
     else {
-      $('section').append('<p>Please choose an answer!</p>');
+      alert('Please choose an answer!');
     }
   });
 }
@@ -159,13 +159,20 @@ function nextQuestion(){
     $('section').replaceWith(startQuiz(store));
   });
 }
+function scoreQuiz(obj){
+  if (obj.questionNumber === obj.questions.length){
+    $('main').on('click','button.next',event=>{
+      $('section').replaceWith(startQuiz(store));
+    });
+  }
+}
 
 function runFunctions(){
   startRender();
   quizRender();
   checkAnswer();
   nextQuestion();
-  //scoreQuiz();
+  scoreQuiz(store);
 }
 
 $(runFunctions);
