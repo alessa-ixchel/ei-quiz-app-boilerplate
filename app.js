@@ -161,18 +161,6 @@ function checkAnswer() {
 }
 
 //create next question function
-/*function nextQuestion(){
-  $('main').on('click','button.next',event=>{
-    index++;
-    if (store.questionNumber <= store.questions.length){
-      $('section').replaceWith(startQuiz(store));
-    }else{
-      $('section').replaceWith(scoreQuiz(store));
-    }
-  });
-}*/
-
-//create next question function
 function nextQuestion(){
   $('main').on('click','button.next',event=>{
     index++;
@@ -204,9 +192,14 @@ function rendersResults(obj) {
   }
 }
 
-function restartQuiz(obj) {
+//restarts quiz
+function restartQuiz() {
   $('main').on('click','button.restart', event=>{
-    $('section').replaceWith(startTemplate());
+    index=0;
+    store.score=0;
+    store.questionNumber=1;
+    store.numberCorrect=0;
+    $('section').replaceWith(startRender());
   });
 }
 
@@ -237,8 +230,7 @@ function runFunctions(){
   quizRender();
   checkAnswer(); 
   nextQuestion();
-  generatesResults();
-  restartQuiz();
+  restartQuiz(store);
 }
 
 $(runFunctions);
