@@ -9,6 +9,8 @@
 
 body {
   margin:20%;
+  color:lightblue;
+  background-color: darkblue;
 }
 
 h1 {
@@ -17,6 +19,19 @@ h1 {
 
 main {
   text-align: center;
+}
+
+.choices {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  margin-bottom: 10px;
+}
+
+input {
+  margin-right:5px;
 }
 
 .score,.progress{

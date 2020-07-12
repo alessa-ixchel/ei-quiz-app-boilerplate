@@ -6,12 +6,10 @@
 
 
 
-
-
 //declares the content of the questions, choices, and answers
 const store = {
   questions: [{
-    question: 'Add 2 + 2',
+    question: 'What is 2 + 2?',
     answers: [
       '1',
       '4',
@@ -21,7 +19,7 @@ const store = {
     correctAnswer: '4'
   },
   {
-    question: 'Divide 50 / 5',
+    question: 'What is 50 / 5?',
     answers: [
       '20',
       '15',
@@ -31,7 +29,7 @@ const store = {
     correctAnswer: '10'
   },
   {
-    question: 'Multiply 3 * 12',
+    question: 'What is 3 * 12?',
     answers: [
       '24',
       '36',
@@ -41,7 +39,7 @@ const store = {
     correctAnswer: '36'
   },
   {
-    question: 'Divide 200 / 20',
+    question: 'What is 200 / 20?',
     answers: [
       '20',
       '2',
@@ -51,7 +49,7 @@ const store = {
     correctAnswer: '10'
   },
   {
-    question: 'Subtract 75 - 13',
+    question: 'What is 75 - 13?',
     answers: [
       '60',
       '51',
@@ -61,7 +59,7 @@ const store = {
     correctAnswer: '62'
   },
   {
-    question: 'multiply 75 * 13',
+    question: 'What is 75 * 13?',
     answers: [
       '975',
       '512',
@@ -85,11 +83,11 @@ let index=0;
 //delares content of main page
 const startTemplate = 
 `<section class="page-1">
-  <h1>Let's start a Math Quiz</h1>
+  <h1>Let's get started!</h1>
   <button class="start">Start</button>
 </section>`;
 
-//initiates first page
+//initiates main page
 function startRender() {
   $('main').append(startTemplate); 
 }
@@ -105,7 +103,7 @@ function questionTemplate(obj, index) {
       <label><input type="radio" name="answer" value= "${obj.questions[index].answers[3]}">${obj.questions[index].answers[3]}</label>
     </form>
     <div class="score">
-    <span>${obj.numberCorrect} correct, ${obj.numberIncorrect} incorrect </span>
+    <span>${obj.numberCorrect} correct | ${obj.numberIncorrect} incorrect </span>
     </div>
     <div class="progress">
         <span class="current-number">Question ${obj.questionNumber} out of ${obj.questions.length}</span>
@@ -113,7 +111,6 @@ function questionTemplate(obj, index) {
     <button class="submit">Submit</button>
   </section>`;
 }
-
 
 //tells screen to show the question template when called
 function startQuiz(){
@@ -131,12 +128,11 @@ function quizRender() {
 function responseTemplate(obj,key) {
   return `<section>
     <h3>${obj[key]}</h3>
-    <h3>the correct answer was ${obj.questions[index].correctAnswer}</h3>
-    <h4> ${obj.numberCorrect} correct, ${obj.numberIncorrect} incorrect </h4>
+    <h3>The correct answer was ${obj.questions[index].correctAnswer}</h3>
+    <h4> ${obj.numberCorrect} correct | ${obj.numberIncorrect} incorrect </h4>
     <button class = "next">Next</button>
   </section>`;
 }
-
 
 //checks users choice and gives a response based on if user was correct
 function responseRender(obj,index) {
@@ -183,7 +179,7 @@ function resultsTemplate(obj,key) {
   return `<section>
     <h1>Here are your results!</h1>
     <h2>${obj[key]}</h2>
-    <p>You received  ${obj.numberCorrect} correct, ${obj.numberIncorrect} incorrect </p>
+    <p>You received ${obj.numberCorrect} correct, ${obj.numberIncorrect} incorrect </p>
     <button class="restart">Restart</button>
   </section>`;
 }
@@ -208,7 +204,6 @@ function restartQuiz() {
     $('section').replaceWith(startRender());
   });
 }
-
 
 // consolidates the necessary functions to run the page in order
 function runFunctions(){
@@ -322,3 +317,4 @@ $(practice);*/
 <button>Submit</button>
 </section>`;*/
 
+s
