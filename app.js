@@ -1,10 +1,14 @@
 /* eslint-disable no-undef */
 'use strict';
+/*******Necessary Changes*********/ 
+//show correct answer when wrong choice is selected
+//adjust score to display "x correct, y incorrect"
 
 
 
-//Example store structure
-// 5 or more questions are required
+
+
+//declares the content of the questions, choices, and answers
 const store = {
   questions: [{
     question: 'Add 2 + 2',
@@ -60,14 +64,14 @@ const store = {
   quizStarted: false,
   questionNumber: 1,
   numberCorrect: 0,
+  numberIncorrect: 0,
   score: 0,
   correct:'Good job!',
   incorrect: 'Nope, sorry!',
   resultsPass: 'You Passed!',
   resultsFail: 'Sorry, You failed. Try again!'
 };
-//create a sentence template that can be reused when declaring the score later
-let scoreSentence= 'Current score =';
+//starts all of the questions on the first one
 let index=0;
 
 //delares content of main page
@@ -93,7 +97,7 @@ function questionTemplate(obj, index) {
       <label><input type="radio" name="answer" value= "${obj.questions[index].answers[3]}">${obj.questions[index].answers[3]}</label>
     </form>
     <div class="score">
-       ${scoreSentence}${obj.score}
+    ${numberCorrect} correct, ${numberIncorrect} incorrect 
     </div>
     <div class="progress">
         <span class="current-number">Question ${obj.questionNumber} out of ${obj.questions.length}</span>
@@ -102,56 +106,49 @@ function questionTemplate(obj, index) {
   </section>`;
 }
 
-//renders template function for questions & final results
-/*function startQuiz(obj){
-  if (obj.quizStarted === true){
-    return questionTemplate(store,index);
-  } else{
-    return scoreQuiz(store);
-  }
-}*/
 
+//tells screen to show the question template when called
 function startQuiz(){
   return questionTemplate(store,index);
 }
 
-//generates questions/event listener
+//changes page to quiz template when start button is clicked
 function quizRender() {
   $('main').on('click','button.start',event=>{
-    //store.quizStarted= true;
     $('section').replaceWith(startQuiz(store));
   });
 }
 
 //creates response pages
 function responseTemplate(obj,key) {
-  //obj.questionNumber ++;
   return `<section>
     <h3>${obj[key]}</h3>
-    <h4>${scoreSentence}${obj.score}</h4>
+    <h4> ${obj.numberCorrect} correct, ${obj.numberIncorrect} incorrect </h4>
     <button class = "next">Next</button>
   </section>`;
 }
 
-//renders response pages
+//checks users choice and gives a response based on if user was correct
 function responseRender(obj,index) {
   const answerValue = $('input[name="answer"]:checked' ).val();
   if (answerValue === obj.questions[index].correctAnswer){
     obj.numberCorrect ++;
-    obj.score = (obj.numberCorrect/obj.questions.length*100);
-    return responseTemplate(store,'correct');
+    return `${obj.numberCorrect} right and ${obj.numberIncorrect} wrong.`, responseTemplate(store,'correct');    //(numberCorrect/obj.questions.length*100);
+  
   }
   else {
+    numberIncorrect ++;
+    `${numberCorrect} right answers and ${numberIncorrect} wrong answers.`;
     return responseTemplate(store,'incorrect');
   } 
 }
 
-//generates response pages
+//changes page to response page upon submit if user has selected an answer. if they haven't, user is alerted they must select an answer
 function checkAnswer() {
   $('main').on('click','button.submit',event=>{
-    store.questionNumber ++;
     const answerValue = $('input[name="answer"]:checked' ).val();
     if (answerValue){
+      store.questionNumber ++;
       $('section').replaceWith(responseRender(store,index));
     }
     else {
@@ -160,7 +157,7 @@ function checkAnswer() {
   });
 }
 
-//create next question function
+//when next button is clicked, response page is either brought to the next question, or shows final results
 function nextQuestion(){
   $('main').on('click','button.next',event=>{
     index++;
@@ -177,14 +174,14 @@ function resultsTemplate(obj,key) {
   return `<section>
     <h1>Here are your results!</h1>
     <h2>${obj[key]}</h2>
-    <p>You received ${obj.score}</p>
+    <p>You received  ${obj.numberCorrect} correct, ${obj.numberIncorrect} incorrect </p>
     <button class="restart">Restart</button>
   </section>`;
 }
 
-//renders results 
-function rendersResults(obj) {
-  if (obj.score >= 60) {
+//checks to see how many correct answers and either tells user they passed or failed 
+function rendersResults() {
+  if (store.numberCorrect > store.numberIncorrect) {
     return resultsTemplate(store,'resultsPass');
   }
   else {
@@ -192,39 +189,19 @@ function rendersResults(obj) {
   }
 }
 
-//restarts quiz
+//restarts quiz when restart button is clicked
 function restartQuiz() {
   $('main').on('click','button.restart', event=>{
     index=0;
-    store.score=0;
     store.questionNumber=1;
     store.numberCorrect=0;
+    store.numberIncorrect=0;
     $('section').replaceWith(startRender());
   });
 }
 
 
-//generates results page
-/*function generatesResults() {
-  if (obj.questionNumber === obj.questions.length){
-    $('main').on('click','button.next', event=>{
-      $('section').replaceWith(rendersResults(store));
-    });
-  }
-}*/
-
-/*function scoreQuiz(obj){
-  if (obj.questionNumber === obj.questions.length){
-    $('main').on('click','button.next',event=>{
-      $('section').replaceWith(resultsTemplate(store));
-    });
-  }
-}*/
-
-
-
-
-
+// consolidates the necessary functions to run the page in order
 function runFunctions(){
   startRender();
   quizRender();
@@ -233,6 +210,7 @@ function runFunctions(){
   restartQuiz(store);
 }
 
+//runs the page
 $(runFunctions);
 
 
