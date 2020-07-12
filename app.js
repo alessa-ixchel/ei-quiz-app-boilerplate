@@ -2,7 +2,7 @@
 'use strict';
 /*******Necessary Changes*********/ 
 //show correct answer when wrong choice is selected
-//adjust score to display "x correct, y incorrect"
+
 
 
 
@@ -59,13 +59,21 @@ const store = {
       '62'
     ],
     correctAnswer: '62'
+  },
+  {
+    question: 'multiply 75 * 13',
+    answers: [
+      '975',
+      '512',
+      '852',
+      '620'
+    ],
+    correctAnswer: '975'
   }
   ],
-  quizStarted: false,
   questionNumber: 1,
   numberCorrect: 0,
   numberIncorrect: 0,
-  score: 0,
   correct:'Good job!',
   incorrect: 'Nope, sorry!',
   resultsPass: 'You Passed!',
@@ -97,7 +105,7 @@ function questionTemplate(obj, index) {
       <label><input type="radio" name="answer" value= "${obj.questions[index].answers[3]}">${obj.questions[index].answers[3]}</label>
     </form>
     <div class="score">
-    <span>${numberCorrect} correct, ${numberIncorrect} incorrect </span>
+    <span>${obj.numberCorrect} correct, ${obj.numberIncorrect} incorrect </span>
     </div>
     <div class="progress">
         <span class="current-number">Question ${obj.questionNumber} out of ${obj.questions.length}</span>
@@ -123,22 +131,23 @@ function quizRender() {
 function responseTemplate(obj,key) {
   return `<section>
     <h3>${obj[key]}</h3>
+    <h3>the correct answer was ${obj.questions[index].correctAnswer}</h3>
     <h4> ${obj.numberCorrect} correct, ${obj.numberIncorrect} incorrect </h4>
     <button class = "next">Next</button>
   </section>`;
 }
+
 
 //checks users choice and gives a response based on if user was correct
 function responseRender(obj,index) {
   const answerValue = $('input[name="answer"]:checked' ).val();
   if (answerValue === obj.questions[index].correctAnswer){
     obj.numberCorrect ++;
-    return `${obj.numberCorrect} right and ${obj.numberIncorrect} wrong.`, responseTemplate(store,'correct');    //(numberCorrect/obj.questions.length*100);
-  
+    return responseTemplate(store,'correct');    //(numberCorrect/obj.questions.length*100);
   }
   else {
-    numberIncorrect ++;
-    `${numberCorrect} right answers and ${numberIncorrect} wrong answers.`;
+    obj.numberIncorrect ++;
+    
     return responseTemplate(store,'incorrect');
   } 
 }
