@@ -97,7 +97,7 @@ function questionTemplate(obj, index) {
       <label><input type="radio" name="answer" value= "${obj.questions[index].answers[3]}">${obj.questions[index].answers[3]}</label>
     </form>
     <div class="score">
-    ${numberCorrect} correct, ${numberIncorrect} incorrect 
+    <span>${numberCorrect} correct, ${numberIncorrect} incorrect </span>
     </div>
     <div class="progress">
         <span class="current-number">Question ${obj.questionNumber} out of ${obj.questions.length}</span>

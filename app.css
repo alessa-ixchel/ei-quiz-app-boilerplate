@@ -6,3 +6,26 @@
   * https://github.com/andreacardybailey/responsive_example/blob/master/styles/responsive-base.css 
   *
 */
+
+body {
+  margin:20%;
+}
+
+h1 {
+  text-align: center;
+}
+
+main {
+  text-align: center;
+}
+
+.score,.progress{
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+button {
+  width: 100px;
+  height: 30px;
+  margin-top: 10px;
+}
