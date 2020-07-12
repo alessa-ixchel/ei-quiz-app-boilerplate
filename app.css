@@ -8,17 +8,11 @@
 */
 
 body {
-  margin:20%;
+  text-align: center;
+  margin:10%;
   color:lightblue;
   background-color: darkblue;
-}
-
-h1 {
-  text-align: center;
-}
-
-main {
-  text-align: center;
+  padding-right: 10px;
 }
 
 .choices {
@@ -35,12 +29,36 @@ input {
 }
 
 .score,.progress{
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding:10px 0;
 }
 
 button {
   width: 100px;
   height: 30px;
   margin-top: 10px;
+}
+
+@media all and (min-width: 450px){
+  body{
+    margin-top: 40px;
+  }
+  section {
+    margin-top: 40px;
+  }
+  .score,.progress {
+    padding: 15px 0;
+  }
+  button {
+    margin-top: 20px;
+  }
+}
+
+@media all and (min-width: 800px){
+body {
+  text-align: left;
+  margin-left:10%;
+}
+label{
+  padding-left: 0;
+}
 }
