@@ -72,9 +72,9 @@ const store = {
   questionNumber: 1,
   numberCorrect: 0,
   numberIncorrect: 0,
-  correct:'Good job!',
-  incorrect: 'Nope, sorry!',
-  resultsPass: 'You Passed!',
+  correct:'That\'s right, good job!',
+  incorrect: 'Sorry, that\'s incorrect!',
+  resultsPass: 'Congratulations, You Passed!',
   resultsFail: 'Sorry, You failed. Try again!'
 };
 //starts all of the questions on the first one
@@ -127,7 +127,7 @@ function quizRender() {
 //creates response pages
 function responseTemplate(obj,key) {
   return `<section>
-    <h3>${obj[key]}</h3>
+    <h2>${obj[key]}</h2>
     <h3>The correct answer was ${obj.questions[index].correctAnswer}</h3>
     <h4> ${obj.numberCorrect} correct | ${obj.numberIncorrect} incorrect </h4>
     <button class = "next">Next</button>
@@ -179,7 +179,7 @@ function resultsTemplate(obj,key) {
   return `<section>
     <h1>Here are your results!</h1>
     <h2>${obj[key]}</h2>
-    <p>You received ${obj.numberCorrect} correct, ${obj.numberIncorrect} incorrect </p>
+    <h4>You received ${obj.numberCorrect} correct and ${obj.numberIncorrect} incorrect </h4>
     <button class="restart">Restart</button>
   </section>`;
 }
