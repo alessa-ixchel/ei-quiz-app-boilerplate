@@ -7,18 +7,18 @@
   *
 */
 
+
  body {
-  margin:20%;
+  text-align: center;
+  margin:40px 10% 10% 10%;
   color:brown;
   background-size: auto;
+  padding-right: 10px;
+  font-family: 'Roboto Condensed', sans-serif;
 }
 
-h1 {
-  text-align: center;
-}
-
-main {
-  text-align: center;
+h1,h2 {
+  font-family: 'Fjalla One', sans-serif;
 }
 
 .choices {
@@ -28,6 +28,7 @@ main {
 
 label {
   margin-bottom: 10px;
+  
 }
 
 input {
@@ -35,12 +36,38 @@ input {
 }
 
 .score,.progress{
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding:10px 0;
+}
+
+h4 {
+  margin: 15px 0;
 }
 
 button {
   width: 100px;
   height: 30px;
   margin-top: 10px;
+  border-radius: 4px;
+}
+
+@media all and (min-width: 450px){
+  body{
+    margin-top: 40px;
+  }
+  section {
+    margin-top: 40px;
+  }
+  .score,.progress {
+    padding: 15px 0;
+  }
+  button {
+    margin-top: 15px;
+  }
+}
+
+@media all and (min-width: 800px){
+  body {
+    text-align: center;
+    margin-left:10%;
+  }
 }

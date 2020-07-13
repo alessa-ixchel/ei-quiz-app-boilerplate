@@ -72,16 +72,23 @@ const store = {
   questionNumber: 1,
   numberCorrect: 0,
   numberIncorrect: 0,
-  correct:'Good job!',
-  incorrect: 'Nope, sorry!',
-  resultsPass: 'You Passed!',
+  correct:'That\'s right, good job!',
+  incorrect: 'Sorry, that\'s incorrect!',
+  resultsPass: 'Congratulations, You Passed!',
   resultsFail: 'Sorry, You failed. Try again!'
 };
+
 //starts all of the questions on the first one
 let index=0;
+
+//create image shortcuts
 const startBackground= ' url(images/start.jpg) ';
 const questionBackground= 'url(images/question.png)';
+const rightBackground=  'url(images/right.png)';
+const wrongBackground=  'url(images/wrong.png)';
+const resultsBackground=  'url(images/results.png)';
 
+//create image change shortcuts
 function changeBackground(color) {
   document.body.style.background = color ;
 }
@@ -101,7 +108,6 @@ const startTemplate =
 
 //initiates main page
 function startRender() {
-
   $('main').append(startTemplate); 
   addBackground(startBackground);
 }
@@ -143,7 +149,7 @@ function quizRender() {
 //creates response pages
 function responseTemplate(obj,key) {
   return `<section>
-    <h3>${obj[key]}</h3>
+    <h2>${obj[key]}</h2>
     <h3>The correct answer was ${obj.questions[index].correctAnswer}</h3>
     <h4> ${obj.numberCorrect} correct | ${obj.numberIncorrect} incorrect </h4>
     <button class = "next">Next</button>
@@ -152,14 +158,16 @@ function responseTemplate(obj,key) {
 
 //checks users choice and gives a response based on if user was correct
 function responseRender(obj,index) {
+  clearBackground();
   const answerValue = $('input[name="answer"]:checked' ).val();
   if (answerValue === obj.questions[index].correctAnswer){
     obj.numberCorrect ++;
+    addBackground(rightBackground);
     return responseTemplate(store,'correct');    //(numberCorrect/obj.questions.length*100);
   }
   else {
     obj.numberIncorrect ++;
-    
+    addBackground(wrongBackground);
     return responseTemplate(store,'incorrect');
   } 
 }
@@ -182,8 +190,10 @@ function checkAnswer() {
 //when next button is clicked, response page is either brought to the next question, or shows final results
 function nextQuestion(){
   $('main').on('click','button.next',event=>{
+    clearBackground();
     index++;
     if (store.questionNumber <= store.questions.length){
+      addBackground(questionBackground);
       $('section').replaceWith(startQuiz(store));
     }else{
       $('section').replaceWith(rendersResults(store));
@@ -193,10 +203,12 @@ function nextQuestion(){
 
 //creates results template
 function resultsTemplate(obj,key) {
+  clearBackground();
+  addBackground(resultsBackground);
   return `<section>
     <h1>Here are your results!</h1>
     <h2>${obj[key]}</h2>
-    <p>You received ${obj.numberCorrect} correct, ${obj.numberIncorrect} incorrect </p>
+    <h4>You received ${obj.numberCorrect} correct and ${obj.numberIncorrect} incorrect </h4>
     <button class="restart">Restart</button>
   </section>`;
 }
