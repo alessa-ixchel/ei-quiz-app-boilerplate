@@ -79,17 +79,31 @@ const store = {
 };
 //starts all of the questions on the first one
 let index=0;
+const startBackground= ' url(images/start.jpg) ';
+const questionBackground= 'url(images/question.png)';
+
+function changeBackground(color) {
+  document.body.style.background = color ;
+}
+function clearBackground(){
+  window.removeEventListener('load',changeBackground);
+}
+function addBackground(call){
+  window.addEventListener('load',changeBackground(call) );
+}
 
 //delares content of main page
 const startTemplate = 
 `<section class="page-1">
   <h1>Let's get started!</h1>
-  <button class="start">Start</button>
+  <button class="start" id = "start">Start</button>
 </section>`;
 
 //initiates main page
 function startRender() {
+
   $('main').append(startTemplate); 
+  addBackground(startBackground);
 }
 
 //creates template for questions
@@ -119,8 +133,10 @@ function startQuiz(){
 
 //changes page to quiz template when start button is clicked
 function quizRender() {
+  clearBackground();
   $('main').on('click','button.start',event=>{
     $('section').replaceWith(startQuiz(store));
+    addBackground(questionBackground);
   });
 }
 
@@ -151,6 +167,7 @@ function responseRender(obj,index) {
 //changes page to response page upon submit if user has selected an answer. if they haven't, user is alerted they must select an answer
 function checkAnswer() {
   $('main').on('click','button.submit',event=>{
+    clearBackground();
     const answerValue = $('input[name="answer"]:checked' ).val();
     if (answerValue){
       store.questionNumber ++;
@@ -188,7 +205,7 @@ function resultsTemplate(obj,key) {
 function rendersResults() {
   if (store.numberCorrect > store.numberIncorrect) {
     return resultsTemplate(store,'resultsPass');
-  }
+  } 
   else {
     return resultsTemplate(store,'resultsFail');
   }
@@ -211,7 +228,7 @@ function runFunctions(){
   quizRender();
   checkAnswer(); 
   nextQuestion();
-  restartQuiz(store);
+  restartQuiz();
 }
 
 //runs the page
@@ -316,5 +333,3 @@ $(practice);*/
 </div>
 <button>Submit</button>
 </section>`;*/
-
-s
