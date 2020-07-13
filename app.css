@@ -11,8 +11,7 @@
  body {
   text-align: center;
   margin:40px 10% 10% 10%;
-  color:brown;
-  background-size: auto;
+  color:rgb(157, 255, 0);
   padding-right: 10px;
   font-family: 'Roboto Condensed', sans-serif;
 }
@@ -67,6 +66,7 @@ button {
 
 @media all and (min-width: 800px){
   body {
+
     text-align: center;
     margin-left:10%;
   }

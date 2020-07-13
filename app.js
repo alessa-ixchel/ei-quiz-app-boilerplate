@@ -82,11 +82,10 @@ const store = {
 let index=0;
 
 //create image shortcuts
-const startBackground= ' url(images/start.jpg) ';
+const startBackground= 'url(images/results.png)';
 const questionBackground= 'url(images/question.png)';
 const rightBackground=  'url(images/right.png)';
 const wrongBackground=  'url(images/wrong.png)';
-const resultsBackground=  'url(images/results.png)';
 
 //create image change shortcuts
 function changeBackground(color) {
@@ -166,6 +165,7 @@ function responseRender(obj,index) {
     return responseTemplate(store,'correct');    //(numberCorrect/obj.questions.length*100);
   }
   else {
+    
     obj.numberIncorrect ++;
     addBackground(wrongBackground);
     return responseTemplate(store,'incorrect');
@@ -204,7 +204,7 @@ function nextQuestion(){
 //creates results template
 function resultsTemplate(obj,key) {
   clearBackground();
-  addBackground(resultsBackground);
+  addBackground(startBackground);
   return `<section>
     <h1>Here are your results!</h1>
     <h2>${obj[key]}</h2>
